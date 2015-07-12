@@ -1,0 +1,21 @@
+html
+  head
+    title helloExpress
+    script(src="js/script.js" type="text/javascript")
+    link(href="css/hello-express.css" rel="stylesheet")
+  body
+    if username
+      div#greeting
+        h1 Hello #{username}!
+    else
+      div#question
+        h1 What is your name?
+        form#form(
+          type="submit"
+          method="post"
+          )
+          input(
+            type='text'
+            name='name'
+            )
+          button submit

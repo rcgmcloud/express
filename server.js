@@ -5,11 +5,13 @@ var path = require('path');
 var config = require('./config/config.json');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
+var bodyParser = require('body-parser');
 
 app.set('views', './views');
 app.set('view engine', 'jade');
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(session({
   store: new RedisStore(),
@@ -28,13 +30,19 @@ app.use(function (req, res, next){
   }else{
     session.views=1;
   }
-  console.log('viewed', session.views, 'times!');
+  //console.log('viewed', session.views, 'times!');
   next();
-
 });
 
 app.get('/', function (req, res) {
-  res.render('hello-express');
+  res.render('index', {username: req.session.username});
+});
+
+
+app.post('/',function (req, res, next){
+  console.log('im doing something');
+  req.session.username = req.body.name;
+  res.redirect('/');
 });
 
 var server = app.listen(3000, function () {
