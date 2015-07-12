@@ -1,4 +1,8 @@
 {
   "port" :3000,
-  "sessionSecret": "white rabbit"
+  "sessionSecret": "white rabbit",
+  "admin": {
+    "username": "rcm",
+    "password": "array"
+  }
 }
